@@ -4,21 +4,21 @@ import '../../routes/app_routes.dart';
 import 'home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(title:  Text('Home')),
       body: Center(
         child: Obx(() => Text(
           'Counter: ${controller.counter}',
-          style: const TextStyle(fontSize: 24),
+          style:  TextStyle(fontSize: 24),
         )),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.increment,
-        child: const Icon(Icons.add),
+        child:  Icon(Icons.add),
       ),
       bottomNavigationBar: navBar(context, 0),
     );
@@ -40,7 +40,7 @@ class HomeView extends GetView<HomeController> {
             break;
         }
       },
-      items: const [
+      items:  [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),

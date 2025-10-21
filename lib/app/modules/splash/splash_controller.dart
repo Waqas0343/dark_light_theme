@@ -9,9 +9,8 @@ class SplashController extends GetxController {
     _goToNext();
   }
 
-  void _goToNext() {
-    Timer(const Duration(seconds: 3), () {
-      Get.offAllNamed(Routes.home);
-    });
+  void _goToNext() async {
+    await Future.delayed(Duration(seconds: 3));
+    Get.offAllNamed(Routes.login);
   }
 }

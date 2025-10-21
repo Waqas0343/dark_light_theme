@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     final ThemeController themeController = Get.put(ThemeController());
 
     return Obx(() => GetMaterialApp(
-      title: 'GetX Theme Switch App',
+      title: 'Home To Home ',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
