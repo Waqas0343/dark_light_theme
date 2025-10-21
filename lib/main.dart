@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 import 'app/controllers/theme_controller.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final themeController = ThemeController();
+  await themeController.loadThemeFromPrefs();
+
+  runApp(MyApp(themeController: themeController));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeController themeController;
+
+  const MyApp({super.key, required this.themeController});
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.put(ThemeController());
-
+    Get.put(themeController);
     return Obx(() => GetMaterialApp(
-      title: 'Home To Home ',
+      title: 'Home To Home',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

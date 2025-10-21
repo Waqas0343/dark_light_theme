@@ -1,57 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class AppTextField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String label;
-  final IconData icon;
+  final String hintText;
   final bool obscureText;
-  final VoidCallback? onSuffixTap;
-  final bool showSuffix;
+  final TextInputType keyboardType;
 
-   const AppTextField({
+  const CustomTextField({
     super.key,
     required this.controller,
-    required this.label,
-    required this.icon,
+    required this.hintText,
     this.obscureText = false,
-    this.onSuffixTap,
-    this.showSuffix = false,
+    this.keyboardType = TextInputType.text,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Get.isDarkMode;
 
     return TextField(
       controller: controller,
       obscureText: obscureText,
-      style: TextStyle(color: isDark ? Colors.white : Colors.black),
+      keyboardType: keyboardType,
       decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(
-          color: isDark ? Colors.white70 : Colors.black54,
-        ),
-        prefixIcon: Icon(icon, color: isDark ? Colors.white : Colors.black54),
-        suffixIcon: showSuffix
-            ? IconButton(
-          icon: Icon(
-            obscureText ? Icons.visibility_off : Icons.visibility,
-            color: isDark ? Colors.white : Colors.black54,
-          ),
-          onPressed: onSuffixTap,
-        )
-            : null,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: isDark ? Colors.white38 : Colors.grey.shade400),
+        hintText: hintText,
+        filled: true,
+        fillColor: isDark ? Colors.grey[900] : Colors.grey[200],
+        hintStyle: TextStyle(color: isDark ? Colors.white54 : Colors.black54),
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: isDark ? Colors.blueAccent :  Color(0xFF3876F2)),
-          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
         ),
       ),
+      style: TextStyle(color: isDark ? Colors.white : Colors.black),
     );
   }
 }

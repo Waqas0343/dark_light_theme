@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../theme/app_colors.dart';
 
-class AppButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
-  final bool isLoading;
 
-   AppButton({
+   CustomButton({
     super.key,
     required this.label,
     required this.onPressed,
-    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Get.isDarkMode;
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize:  Size(double.infinity, 50),
         backgroundColor:
-        isDark ? Colors.blueAccent :  Color(0xFF3876F2),
+        isDark ? AppColors.darkPrimary : AppColors.lightPrimary,
+        minimumSize:  Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      onPressed: isLoading ? null : onPressed,
-      child: isLoading
-          ?  CircularProgressIndicator(color: Colors.white)
-          : Text(
+      onPressed: onPressed,
+      child: Text(
         label,
-        style:  TextStyle(fontSize: 18, color: Colors.white),
+        style:  TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

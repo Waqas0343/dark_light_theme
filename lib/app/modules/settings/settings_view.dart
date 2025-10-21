@@ -1,51 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import 'settings_controller.dart';
+import '../../controllers/theme_controller.dart';
+import '../../widgets/app_text.dart';
 
-class SettingsView extends GetView<SettingsController> {
+class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeController = controller.themeController;
-    return Scaffold(
-      appBar: AppBar(title:  Text('Settings')),
-      body: Center(
-        child: Obx(() => SwitchListTile(
-          title: Text(
-            themeController.isDarkMode ? 'Dark Mode' : 'Light Mode',
-            style:  TextStyle(fontSize: 18),
-          ),
-          value: themeController.isDarkMode,
-          onChanged: (value) => themeController.toggleTheme(value),
-        )),
-      ),
-      bottomNavigationBar: navBar(context, 2),
-    );
-  }
+    final ThemeController themeController = Get.find();
 
-  Widget navBar(BuildContext context, int index) {
-    return BottomNavigationBar(
-      currentIndex: index,
-      onTap: (i) {
-        switch (i) {
-          case 0:
-            Get.offAllNamed(Routes.home);
-            break;
-          case 1:
-            Get.offAllNamed(Routes.profile);
-            break;
-          case 2:
-            Get.offAllNamed(Routes.settings);
-            break;
-        }
-      },
-      items:  [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const CustomText(
+          text: "App Settings",
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Obx(() {
+          final isDark = themeController.themeMode.value == ThemeMode.dark;
+          return SwitchListTile(
+            title: CustomText(
+              text: isDark ? "Dark Mode" : "Light Mode",
+              fontWeight: FontWeight.w600,
+            ),
+            value: isDark,
+            onChanged: (value) {
+              themeController.setTheme(value);
+            },
+          );
+        }),
+      ),
     );
   }
 }

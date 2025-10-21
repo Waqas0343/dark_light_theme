@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../theme/app_colors.dart';
 
-class AppText extends StatelessWidget {
+class CustomText extends StatelessWidget {
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
-  final Color? color;
   final TextAlign textAlign;
 
-  const AppText(
-      this.text, {
-        super.key,
-        this.fontSize = 16,
-        this.fontWeight = FontWeight.normal,
-        this.color,
-        this.textAlign = TextAlign.start,
-      });
+  const CustomText({
+    super.key,
+    required this.text,
+    this.fontSize = 16,
+    this.fontWeight = FontWeight.normal,
+    this.textAlign = TextAlign.center,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Get.isDarkMode;
     return Text(
       text,
       textAlign: textAlign,
       style: TextStyle(
-        color: color ??
-            (isDark ? Colors.white : Colors.black87),
+        color: isDark ? AppColors.darkText : AppColors.lightText,
         fontSize: fontSize,
         fontWeight: fontWeight,
       ),
