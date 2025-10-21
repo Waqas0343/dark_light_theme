@@ -9,20 +9,24 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const CustomText(
-          text: "App Settings",
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
+    return Obx(() {
+      final isDark = themeController.themeMode.value == ThemeMode.dark;
+      return Scaffold(
+        appBar: AppBar(
+          title:  CustomText(
+            text: 'Settings',
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          centerTitle: true,
+          backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: isDark ? Colors.white : Colors.black,
+          ),
         ),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Obx(() {
-          final isDark = themeController.themeMode.value == ThemeMode.dark;
-          return SwitchListTile(
+        body: Center(
+          child: SwitchListTile(
             title: CustomText(
               text: isDark ? "Dark Mode" : "Light Mode",
               fontWeight: FontWeight.w600,
@@ -31,9 +35,9 @@ class SettingsView extends StatelessWidget {
             onChanged: (value) {
               themeController.setTheme(value);
             },
-          );
-        }),
-      ),
-    );
+          ),
+        ),
+      );
+    });
   }
 }
